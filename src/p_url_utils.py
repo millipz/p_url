@@ -12,8 +12,13 @@ def shorten(url: str) -> str:
     Raises:
         ValueError: for invalid url.
     """
+
+    url_prefix = "https://milesjphillips.com/"
+
     print(f"running validation on {url}")
     if not validate_url(url):
         url = "http://" + url
         if not validate_url(url):
            raise ValueError
+    
+    return url_prefix

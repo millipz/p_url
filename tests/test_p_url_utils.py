@@ -1,6 +1,8 @@
 from src.p_url_utils import shorten
 import pytest
 
+url_prefix = "https://milesjphillips.com/"
+
 class TestShortenUrl:
     def test_returns_value_error_for_invalid_urls(self):
         valids = ["www.google.com", "coda.io/product", "https://example.com/page?name=ferret"]
@@ -9,4 +11,8 @@ class TestShortenUrl:
         for url in invalids:
             with pytest.raises(ValueError):
                 shorten(url)
-        
+    
+    def test_url_is_prefixed_correctly(self):
+        url = "www.perspectum.com"
+        result = shorten(url)
+        assert result.startswith(url_prefix)
