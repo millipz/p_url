@@ -1,0 +1,25 @@
+[project]
+name = "p-url"
+version = "0.1.0"
+description = "url shortener for code challenge"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv]
+dev-dependencies = ["pytest", "pytest-cov", "coverage", "bandit", "pip-audit", "black", "flake8"]
+
+[tool.pytest.ini_options]
+addopts = "--testdox"
+testpaths = ["tests"]
+
+[tool.flake8]
+max-line-length = 100
+exclude = [".git", "__pycache__", "./.venv", "layer"]
+
+[tool.black]
+line-length = 100
+
+[tool.bandit]
+exclude_dirs = ["./tests", "./.venv", "./build"]
+skips = ["B101"]
