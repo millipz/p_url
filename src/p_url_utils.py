@@ -1,4 +1,6 @@
 from validators import url as validate_url
+import hashlib
+
 
 def shorten(url: str) -> str:
     """Shortens url using md5 hash
@@ -19,6 +21,6 @@ def shorten(url: str) -> str:
     if not validate_url(url):
         url = "http://" + url
         if not validate_url(url):
-           raise ValueError
-    
-    return url_prefix
+            raise ValueError
+
+    return url_prefix + hashlib.md5(url.encode()).hexdigest()[:6]

@@ -1,5 +1,6 @@
 from src.p_url_utils import shorten
 import pytest
+import hashlib
 
 url_prefix = "https://milesjphillips.com/"
 
@@ -14,5 +15,12 @@ class TestShortenUrl:
     
     def test_url_is_prefixed_correctly(self):
         url = "www.perspectum.com"
-        result = shorten(url)
-        assert result.startswith(url_prefix)
+        short_url = shorten(url)
+        assert short_url.startswith(url_prefix)
+
+    def test_short_url_is_checksum_prefix(self):
+        url = "https://modular.com/page?name=befaco"
+        short_url = shorten(url)
+        checksum = hashlib.md5(url.encode()).hexdigest() 
+        expected_short_url = checksum[:6]
+        assert short_url == url_prefix + expected_short_url
