@@ -12,6 +12,7 @@ dev-dependencies = ["pytest", "pytest-cov", "coverage", "bandit", "pip-audit", "
 [tool.pytest.ini_options]
 addopts = "--testdox"
 testpaths = ["tests"]
+pythonpath = "./"
 
 [tool.flake8]
 max-line-length = 100
