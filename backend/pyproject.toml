@@ -1,5 +1,5 @@
 [project]
-name = "p-url"
+name = "p-url-backend"
 version = "0.1.0"
 description = "url shortener for code challenge"
 readme = "README.md"
@@ -9,12 +9,14 @@ dependencies = ["validators", "boto3"]
 [tool.uv]
 dev-dependencies = [
     "pytest",
+    "pytest-testdox",
     "pytest-cov",
     "coverage",
     "bandit",
     "pip-audit",
     "black",
     "flake8",
+    "flake8-pyproject",
     "mock",
     "moto",
 ]
@@ -26,8 +28,15 @@ pythonpath = "./"
 
 [tool.flake8]
 max-line-length = 100
-exclude = [".git", "__pycache__", "./.venv", "layer"]
-
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv",
+    "venv",
+    "env",
+    "build",
+    "dist"
+]
 [tool.black]
 line-length = 100
 

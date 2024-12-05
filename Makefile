@@ -3,46 +3,43 @@
 #   Makefile for p_url   #
 #                        #
 ##########################
+include common/variables.mk
 
-PROJECT_NAME = p_url
-PYTHON_INTERPRETER = python
-WD=$(shell pwd)
-PYTHONPATH=${WD}
-SHELL := /bin/bash
+BACKEND_DIR := backend
+FRONTEND_DIR := frontend
 
-## Install dependencies using uv
+.PHONY: install test lint audit build-backend build-frontend
+
+environment:
+	@echo "Installing dependencies..."
+	cd $(BACKEND_DIR) && uv venv
+
+
 install:
-	uv pip install -e .
+	@echo "Installing dependencies..."
+	cd $(BACKEND_DIR) && uv pip install -e .
 
-## Install dev dependencies
-dev-setup:
-	uv pip install -e ".[dev]"
+install-dev:
+	@echo "Installing dev dependencies..."
+	cd $(BACKEND_DIR) && uv pip install -e ".[dev]"
 
-## Run the security test (bandit + pip-audit)
-security-test:
-	uv run pip-audit
-	uv run bandit -r . -x ./.venv,./tests,./build
+test:
+	@echo "Running tests..."
+	cd $(BACKEND_DIR) && uv run pytest
 
-## Run the black code formatter
-run-black:
-	uv run black ./
+lint:
+	@echo "Linting code..."
+	cd $(BACKEND_DIR) && uv run black .
+	cd $(BACKEND_DIR) && uv run flake8
 
-## Run the flake8 code check
-run-flake8:
-	uv run flake8 --exclude .venv
+audit:
+	@echo "Running security audit..."
+	cd $(BACKEND_DIR) && uv run pip-audit
 
-## Run the unit tests
-unit-test:
-	uv run pytest
+build-backend:
+	docker build -t myproject/backend -f $(BACKEND_DIR)/Dockerfile .
 
-## Run the coverage check
-check-coverage:
-	uv run pytest --cov=src tests --cov-report term-missing
+all:environment install install-dev test lint audit build-backend
 
-## Run all checks
-run-checks: security-test run-black run-flake8 check-coverage
-
-## Clean up
-clean:
-	find . -type f -name "*.py[co]" -delete
-	find . -type d -name "__pycache__" -delete
+run-backend:
+	docker run -p 8000:8000 myproject/backend

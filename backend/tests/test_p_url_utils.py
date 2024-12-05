@@ -1,4 +1,4 @@
-from src.p_url_utils import shorten, get_url, write_url
+from src.p_url.utils import shorten, get_url, write_url
 import os
 import hashlib
 import boto3
@@ -13,7 +13,7 @@ def aws_creds():
     os.environ["AWS_SECRET_ACCESS_KEY"] = "test"
     os.environ["AWS_SECURITY_TOKEN"] = "test"
     os.environ["AWS_SESSION_TOKEN"] = "test"
-    
+
 
 @pytest.fixture(scope="function")
 def ssm_client(aws_creds: None):
@@ -45,7 +45,7 @@ class TestShortenUrl:
     def test_short_url_is_checksum_prefix(self):
         url = "https://modular.com/page?name=befaco"
         short_url = shorten(url)
-        checksum = hashlib.md5(url.encode()).hexdigest()
+        checksum = hashlib.md5(url.encode(), usedforsecurity=False).hexdigest()
         expected_short_url = checksum[:6]
         assert short_url == url_prefix + expected_short_url
 
