@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "backend_lambda_policy" {
       "ssm:GetParameters",
       "ssm:GetParametersByPath"
     ]
-    resources = ["arn:aws:ssm:*:*:parameter/*"]
+    resources = ["arn:aws:ssm:*:*:*"]
   }
 }
 
