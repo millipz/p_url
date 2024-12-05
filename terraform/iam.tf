@@ -28,6 +28,7 @@ data "aws_iam_policy_document" "backend_lambda_policy" {
   statement {
     effect = "Allow"
     actions = [
+      "ssm:PutParameter"
       "ssm:GetParameter",
       "ssm:GetParameters",
       "ssm:GetParametersByPath"
