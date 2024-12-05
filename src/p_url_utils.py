@@ -24,3 +24,9 @@ def shorten(url: str) -> str:
             raise ValueError
 
     return url_prefix + hashlib.md5(url.encode()).hexdigest()[:6]
+
+def get_url():
+    pass
+
+def write_url():
+    pass
