@@ -6,6 +6,8 @@ import pytest
 from mock import Mock
 from moto import mock_aws
 
+PATH = "/testpath/"
+
 
 @pytest.fixture(scope="function")
 def aws_creds():
@@ -54,28 +56,27 @@ class TestGetUrl:
 
     def test_missing_key_raises_keyerror(self, ssm_client):
         with pytest.raises(KeyError):
-            get_url("non_existent_table", ssm_client)
+            get_url("non_existent_key", PATH, ssm_client)
 
     def test_successful_retrieval(self, ssm_client):
         ssm_client.put_parameter(
-            Name="1234",
+            Name=PATH + "1234",
             Value="http://hello.com",
             Type="String",
         )
-
-        url = get_url("1234", ssm_client)
+        url = get_url("1234", PATH, ssm_client)
         assert url == "http://hello.com"
 
 
 class TestWriteUrl:
 
-    def test_url_written_to_param_store(self, ssm_client):
-        write_url("a30n4", "http://dinosaurs.com", ssm_client)
-        url = get_url("a30n4", ssm_client)
+    def test_url_written_to_param_store_with_prefix(self, ssm_client):
+        write_url("a30n4", "http://dinosaurs.com", PATH, ssm_client)
+        url = get_url("a30n4", PATH, ssm_client)
         assert url == "http://dinosaurs.com"
 
     def test_write_timestamp_connection_error(self):
         mock_ssm_client = Mock()
         mock_ssm_client.put_parameter.side_effect = ConnectionError("Connection issue")
         with pytest.raises(ConnectionError):
-            write_url("a30n4", "http://dinosaurs.com", mock_ssm_client)
+            write_url("a30n4", "http://dinosaurs.com", PATH, mock_ssm_client)

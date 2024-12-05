@@ -27,11 +27,12 @@ def shorten(url: str) -> str:
     return url_prefix + hashlib.md5(url.encode(), usedforsecurity=False).hexdigest()[:6]
 
 
-def get_url(key: str, ssm_client) -> str:
+def get_url(key: str, path, ssm_client) -> str:
     """get url stored in AWS parameter store by key
 
     Args:
         key (str): key
+        path (str): path prefix
         client (boto3 SSM Client)
 
     Raises:
@@ -42,18 +43,19 @@ def get_url(key: str, ssm_client) -> str:
         str: full url
     """
     try:
-        response = ssm_client.get_parameter(Name=(key))
+        response = ssm_client.get_parameter(Name=(path + key))
     except ssm_client.exceptions.ParameterNotFound:
         raise KeyError
     return response["Parameter"]["Value"]
 
 
-def write_url(key, url, ssm_client):
+def write_url(key, url, path, ssm_client):
     """wites url to AWS parameter store with key
 
     Args:
         key (str): key
         url (str): url to write
+        path (str): path prefix
         client (boto3 SSM Client)
 
     Raises:
@@ -64,7 +66,7 @@ def write_url(key, url, ssm_client):
     """
     try:
         ssm_client.put_parameter(
-            Name=key,
+            Name=path + key,
             Type="String",
             Description="url stored by p_url service",
             Value=url,
