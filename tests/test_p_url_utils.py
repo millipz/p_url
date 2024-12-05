@@ -1,7 +1,8 @@
 from src.p_url_utils import shorten, get_url, write_url
-import pytest
-import hashlib
 import os
+import hashlib
+import boto3
+import pytest
 from mock import Mock
 from moto import mock_aws
 

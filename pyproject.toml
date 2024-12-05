@@ -4,10 +4,20 @@ version = "0.1.0"
 description = "url shortener for code challenge"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["validators", "moto"]
+dependencies = ["validators", "boto3"]
 
 [tool.uv]
-dev-dependencies = ["pytest", "pytest-cov", "coverage", "bandit", "pip-audit", "black", "flake8", "mock"]
+dev-dependencies = [
+    "pytest",
+    "pytest-cov",
+    "coverage",
+    "bandit",
+    "pip-audit",
+    "black",
+    "flake8",
+    "mock",
+    "moto",
+]
 
 [tool.pytest.ini_options]
 addopts = "--testdox"

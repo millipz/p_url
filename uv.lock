@@ -524,7 +524,7 @@ name = "p-url"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "moto" },
+    { name = "boto3" },
     { name = "validators" },
 ]
 
@@ -535,6 +535,7 @@ dev = [
     { name = "coverage" },
     { name = "flake8" },
     { name = "mock" },
+    { name = "moto" },
     { name = "pip-audit" },
     { name = "pytest" },
     { name = "pytest-cov" },
@@ -542,7 +543,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "moto" },
+    { name = "boto3" },
     { name = "validators" },
 ]
 
@@ -553,6 +554,7 @@ dev = [
     { name = "coverage" },
     { name = "flake8" },
     { name = "mock" },
+    { name = "moto" },
     { name = "pip-audit" },
     { name = "pytest" },
     { name = "pytest-cov" },
