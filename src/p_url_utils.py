@@ -1,5 +1,7 @@
 from validators import url as validate_url
 import hashlib
+import botocore.exceptions
+
 
 
 def shorten(url: str) -> str:
@@ -48,4 +50,26 @@ def get_url(key: str, ssm_client) -> str:
     return response["Parameter"]["Value"]
 
 def write_url(key, url, ssm_client):
-    pass
+    """wites url to AWS parameter store with key
+
+    Args:
+        key (str): key
+        url (str): url to write
+        client (boto3 SSM Client)
+
+    Raises:
+        ConnectionError : connection issue to parameter store
+
+    Returns:
+        None
+    """
+    try:
+        ssm_client.put_parameter(
+            Name=key,
+            Type="String",
+            Description="url stored by p_url service",
+            Value=url,
+            Overwrite=True,
+        )
+    except botocore.exceptions.ClientError as e:
+        raise ConnectionError(f"url could not be written: {e}")
