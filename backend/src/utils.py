@@ -10,7 +10,7 @@ def shorten(url: str) -> str:
         url (str): url to shorten
 
     Returns:
-        str: the shortened url path
+        str: the shortened url
 
     Raises:
         ValueError: for invalid url.
@@ -62,7 +62,7 @@ def write_url(key, url, path, ssm_client):
     Returns:
         None
     """
-    name = path + key
+    name = path + "/" + key
     print(name)
     try:
         ssm_client.put_parameter(

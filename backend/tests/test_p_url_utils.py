@@ -6,7 +6,7 @@ import pytest
 from mock import Mock
 from moto import mock_aws
 
-PATH = "/testpath/"
+PATH = "/testpath"
 
 
 @pytest.fixture(scope="function")
@@ -55,11 +55,12 @@ class TestGetUrl:
 
     def test_successful_retrieval(self, ssm_client):
         ssm_client.put_parameter(
-            Name=PATH + "1234",
+            Name=PATH + "/1234",
             Value="http://hello.com",
             Type="String",
         )
-        url = get_url("1234", PATH, ssm_client)
+        print(ssm_client.describe_parameters())
+        url = get_url("/1234", PATH, ssm_client)
         assert url == "http://hello.com"
 
 
@@ -67,7 +68,7 @@ class TestWriteUrl:
 
     def test_url_written_to_param_store_with_prefix(self, ssm_client):
         write_url("a30n4", "http://dinosaurs.com", PATH, ssm_client)
-        url = get_url("a30n4", PATH, ssm_client)
+        url = get_url("/a30n4", PATH, ssm_client)
         assert url == "http://dinosaurs.com"
 
     def test_write_timestamp_connection_error(self):
