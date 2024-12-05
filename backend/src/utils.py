@@ -4,19 +4,17 @@ import botocore.exceptions
 
 
 def shorten(url: str) -> str:
-    """Shortens url using md5 hash
+    """Shortens url using md5 hash to path
 
     Args:
         url (str): url to shorten
 
     Returns:
-        str: the shortened url
+        str: the shortened url path
 
     Raises:
         ValueError: for invalid url.
     """
-
-    url_prefix = "https://milesjphillips.com/"
 
     print(f"running validation on {url}")
     if not validate_url(url):
@@ -24,7 +22,7 @@ def shorten(url: str) -> str:
         if not validate_url(url):
             raise ValueError
 
-    return url_prefix + hashlib.md5(url.encode(), usedforsecurity=False).hexdigest()[:6]
+    return hashlib.md5(url.encode(), usedforsecurity=False).hexdigest()[:6]
 
 
 def get_url(key: str, path, ssm_client) -> str:
@@ -64,9 +62,11 @@ def write_url(key, url, path, ssm_client):
     Returns:
         None
     """
+    name = path + key
+    print(name)
     try:
         ssm_client.put_parameter(
-            Name=path + key,
+            Name=name,
             Type="String",
             Description="url stored by p_url service",
             Value=url,
