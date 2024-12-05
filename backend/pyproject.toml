@@ -3,7 +3,7 @@ name = "p-url-backend"
 version = "0.1.0"
 description = "backend for url shortener for code challenge, to be deployed on AWS Lambda"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 dependencies = ["validators"]
 
 [tool.uv]

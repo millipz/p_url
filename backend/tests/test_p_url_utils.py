@@ -1,4 +1,4 @@
-from src.p_url.utils import shorten, get_url, write_url
+from src.utils import shorten, get_url, write_url
 import os
 import hashlib
 import boto3
