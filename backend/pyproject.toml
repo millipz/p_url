@@ -1,13 +1,14 @@
 [project]
 name = "p-url-backend"
 version = "0.1.0"
-description = "url shortener for code challenge"
+description = "backend for url shortener for code challenge, to be deployed on AWS Lambda"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["validators", "boto3"]
+dependencies = ["validators"]
 
 [tool.uv]
 dev-dependencies = [
+    "boto3", # note this is included in lambda functions
     "pytest",
     "pytest-testdox",
     "pytest-cov",

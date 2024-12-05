@@ -43,3 +43,26 @@ all:environment install install-dev test lint audit build-backend
 
 run-backend:
 	docker run -p 8000:8000 myproject/backend
+
+
+layer:
+	rm -rf build/tmp-layer-dir/
+	mkdir -p build/tmp-layer-dir
+	cd backend && uv pip compile pyproject.toml -o ../build/layer-requirements.txt
+	cd build/tmp-layer-dir && uv venv && uv pip install -r ../layer-requirements.txt
+	rm -rf build/layer
+	mkdir build/layer && mkdir build/layer/python
+	cp -r build/tmp-layer-dir/.venv/lib build/layer/python
+	rm -rf build/tmp-layer-dir
+
+init-terraform:
+	@echo "------- $(PURPLE) 👷‍♀️ Initialising Terraform $(RESET)------- "
+	@cd terraform && terraform init -input=false
+
+deploy-infrastructure: layer
+	@echo "------- $(PURPLE) 🧱 Deploying Terraform $(RESET)------- "
+	@cd terraform && terraform apply -auto-approve
+
+destroy-infrastructure:
+	@echo "------- $(PURPLE) 🏗️ Destroying Terraform $(RESET)------- "
+	@cd terraform && terraform destroy -auto-approve
