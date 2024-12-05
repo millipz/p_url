@@ -7,7 +7,7 @@ requires-python = ">=3.12"
 dependencies = ["validators"]
 
 [tool.uv]
-dev-dependencies = ["pytest", "pytest-cov", "coverage", "bandit", "pip-audit", "black", "flake8"]
+dev-dependencies = ["pytest", "pytest-cov", "coverage", "bandit", "pip-audit", "black", "flake8", "mock"]
 
 [tool.pytest.ini_options]
 addopts = "--testdox"

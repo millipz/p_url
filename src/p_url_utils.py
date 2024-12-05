@@ -25,8 +25,8 @@ def shorten(url: str) -> str:
 
     return url_prefix + hashlib.md5(url.encode()).hexdigest()[:6]
 
-def get_url():
+def get_url(key, ssm_client):
     pass
 
-def write_url():
+def write_url(key, url, ssm_client):
     pass

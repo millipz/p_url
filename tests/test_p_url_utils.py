@@ -2,6 +2,7 @@ from src.p_url_utils import shorten, get_url, write_url
 import pytest
 import hashlib
 import os
+from mock import Mock
 
 
 @pytest.fixture(scope="function")
@@ -10,7 +11,12 @@ def aws_creds():
     os.environ["AWS_SECRET_ACCESS_KEY"] = "test"
     os.environ["AWS_SECURITY_TOKEN"] = "test"
     os.environ["AWS_SESSION_TOKEN"] = "test"
-    os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
+    
+
+@pytest.fixture(scope="function")
+def ssm_client(aws_creds: None):
+    with mock_aws():
+        yield boto3.client("ssm")
 
 
 url_prefix = "https://milesjphillips.com/"
