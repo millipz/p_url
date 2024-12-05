@@ -3,6 +3,7 @@ import pytest
 import hashlib
 import os
 from mock import Mock
+from moto import mock_aws
 
 
 @pytest.fixture(scope="function")
