@@ -50,7 +50,7 @@ class TestShortenUrl:
         assert short_url == url_prefix + expected_short_url
 
 
-class GetUrl:
+class TestGetUrl:
 
     def test_missing_key_raises_keyerror(self, ssm_client):
         with pytest.raises(KeyError):
@@ -63,14 +63,7 @@ class GetUrl:
             Type="String",
         )
 
-        ssm_client.put_parameter(
-            Name="1234",
-            Value="http://hello.com",
-            Type="String",
-            Overwrite=True,
-        )
-
-        url = get_url("example_table", ssm_client)
+        url = get_url("1234", ssm_client)
         assert url == "http://hello.com"
 
 
