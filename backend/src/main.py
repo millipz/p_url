@@ -13,8 +13,19 @@ def lambda_handler(event, context):
         url = body["url"]
         short = shorten(url)
         write_url(short, url, PATH, ssm_client)
-        return {"statusCode": 200, "body": json.dumps("url successfully stored")}
+        response = {
+            "success": True,
+            "short_url": PATH + short,
+            "message": "url successfully stored"
+        }
+        return {"statusCode": 201, "body": json.dumps(response)}
     if method == "GET":
         key = body["key"]
-        get_url(key, PATH, ssm_client)
+        long = get_url(key, PATH, ssm_client)
+        response = {
+            "success": True,
+            "long_url": long,
+            "message": "url successfully retrieved"
+        }
+        return {"statusCode": 200, "body": json.dumps(response)}
 
