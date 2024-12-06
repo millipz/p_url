@@ -57,6 +57,7 @@ The project is divided into two main components:
 
 
 ### Deploy the infrastructure:
+
     ```
     make deploy-infrastructure
     ```
