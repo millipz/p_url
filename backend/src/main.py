@@ -1,6 +1,6 @@
 import json
 import boto3
-from utils import shorten, get_url, write_url
+from src.utils import shorten, get_url, write_url
 
 PATH = "/testpath"
 

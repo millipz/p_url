@@ -1,7 +1,6 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import requests
-from io import StringIO
 from app.main import get_long_url, create_short_url, redirect_page, main
 
 
@@ -64,7 +63,6 @@ class TestStreamlitApp(unittest.TestCase):
         mock_get_long_url.assert_called_once_with("abc123")
         mock_redirect_page.assert_called_once_with("https://example.com")
 
-
     @patch("app.main.st.query_params", {})
     @patch("app.main.st.text_input")
     @patch("app.main.create_short_url")
@@ -75,8 +73,8 @@ class TestStreamlitApp(unittest.TestCase):
         with patch("app.main.st.success") as mock_success:
             with patch("app.main.st.markdown") as mock_markdown:
                 main()
-                mock_success.assert_called_once_with("Here's your new shiny short URL!")
-                mock_markdown.assert_called_with(
+                mock_success.assert_called_once_with(
+                    "Here's your new shiny short URL! "
                     "[localhost:8501/?go=abc123](http://localhost:8501/?go=abc123)"
                 )
 
