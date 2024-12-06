@@ -22,7 +22,7 @@ frontend-install-dev:
 	cd $(FRONTEND_DIR) && uv pip install -e ".[dev]"
 
 frontend-test:
-	# TODO - Frontend tests
+	cd $(FRONTEND_DIR) && uv run pytest
 
 frontend-lint:
 	@echo "Linting code..."
@@ -62,7 +62,6 @@ backend-install-dev:
 backend-test:
 	@echo "Running tests..."
 	cd $(BACKEND_DIR) && uv run pytest
-	# Pending frontend tests
 
 backend-lint:
 	@echo "Linting code..."
