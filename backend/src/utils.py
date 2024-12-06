@@ -64,7 +64,7 @@ def write_url(key: str, url: str, path: str, ssm_client) -> None:
     """
     name = path + "/" + key
     print(name)
-    if not url.startswith(('http://', 'https://')):
+    if not url.startswith(("http://", "https://")):
         url = "https://" + url
     try:
         ssm_client.put_parameter(
