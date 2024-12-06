@@ -47,7 +47,7 @@ def get_url(key: str, path, ssm_client) -> str:
     return response["Parameter"]["Value"]
 
 
-def write_url(key, url, path, ssm_client):
+def write_url(key: str, url: str, path: str, ssm_client) -> None:
     """wites url to AWS parameter store with key
 
     Args:
@@ -64,6 +64,8 @@ def write_url(key, url, path, ssm_client):
     """
     name = path + "/" + key
     print(name)
+    if not url.startswith(('http://', 'https://')):
+        url = "https://" + url
     try:
         ssm_client.put_parameter(
             Name=name,
