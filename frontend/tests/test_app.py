@@ -71,12 +71,11 @@ class TestStreamlitApp(unittest.TestCase):
         mock_create_short_url.return_value = "abc123"
 
         with patch("app.main.st.success") as mock_success:
-            with patch("app.main.st.markdown") as mock_markdown:
-                main()
-                mock_success.assert_called_once_with(
-                    "Here's your new shiny short URL! "
-                    "[localhost:8501/?go=abc123](http://localhost:8501/?go=abc123)"
-                )
+            main()
+            mock_success.assert_called_once_with(
+                "Here's your new shiny short URL! "
+                "[localhost:8501/?go=abc123](http://localhost:8501/?go=abc123)"
+            )
 
 
 if __name__ == "__main__":
