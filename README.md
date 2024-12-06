@@ -29,6 +29,8 @@ The project is divided into two main components:
 
 ## Setup and Installation
 
+Begin by cloning this repo locally.
+
 ### Backend
 
 1. Set up the environment, install and run tests:
