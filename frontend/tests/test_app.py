@@ -2,9 +2,21 @@ import unittest
 from unittest.mock import patch, MagicMock
 import requests
 from app.main import get_long_url, create_short_url, redirect_page, main
+from app.main import os as main_os
 
 
 class TestStreamlitApp(unittest.TestCase):
+
+    @patch("app.main.os.environ.get")
+    def test_missing_api_env_var(self, mock_environ_get):
+        mock_environ_get.return_value = None
+        print(main_os.environ.get("API_ENDPOINT"))
+        with patch("app.main.st.error") as mock_error:
+            main()
+
+            mock_error.assert_called_with(
+                "missing .env file, please contact the developer or deploy your own backend!"
+            )
 
     @patch("app.main.requests.get")
     def test_get_long_url_success(self, mock_get):
