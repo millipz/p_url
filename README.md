@@ -1,5 +1,3 @@
-Here's a README for your URL shortening app based on the information provided in your Makefile:
-
 # p-URL Short'ner
 
 ## Overview
