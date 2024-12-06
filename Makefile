@@ -75,7 +75,7 @@ backend-audit:
 	cd $(BACKEND_DIR) && uv run pip-audit
 	cd $(FRONTEND_DIR) && uv run pip-audit
 
-backend-all: backend-environment backend-install backend-install-dev backend-test lbackend-int backend-audit
+backend-all: backend-environment backend-install backend-install-dev backend-test backend-lint backend-audit
 
 # Backend Deployment
 backend-layer:
