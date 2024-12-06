@@ -56,13 +56,6 @@ The project is divided into two main components:
 ## Deployment
 
 
-Deploy the infrastructure:
+Deploy the infrastructure: `make deploy-infrastructure`
 
-    ```
-    make deploy-infrastructure
-    ```
-
-Destroy the infrastructure:
-    ```
-    make destroy-infrastructure
-    ```
+Destroy the infrastructure: `make destroy-infrastructure`
