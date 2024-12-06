@@ -1,5 +1,3 @@
-Here's a README for your URL shortening app based on the information provided in your Makefile:
-
 # p-URL Short'ner
 
 ## Overview
@@ -31,6 +29,8 @@ The project is divided into two main components:
 
 ## Setup and Installation
 
+Begin by cloning this repo locally.
+
 ### Backend
 
 1. Set up the environment, install and run tests:
@@ -58,12 +58,6 @@ The project is divided into two main components:
 ## Deployment
 
 
-### Deploy the infrastructure:
-    ```
-    make deploy-infrastructure
-    ```
+Deploy the infrastructure: `make deploy-infrastructure`
 
-### Destroy the infrastructure:
-    ```
-    make destroy-infrastructure
-    ```
+Destroy the infrastructure: `make destroy-infrastructure`
