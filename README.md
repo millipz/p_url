@@ -10,7 +10,7 @@ These instructions are for MacOS or Linux systems
 
 1. Begin by cloning this repo locally.
 
-1. Make sure you have Python 3 or above, and make installed
+1. Make sure you have **Python 3.11** or above, and **make** installed
 
 1. This app is built using [uv](https://docs.astral.sh/uv/). if you don't have it, `pip install uv`
 
