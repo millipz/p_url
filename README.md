@@ -19,7 +19,7 @@ The project is divided into two main components:
 
 ### Frontend only
 
-- `.env.dev` file with API Gateway URL to link to backend e.g.
+- `frontend/.env.dev` file with API Gateway URL to link to backend e.g.
 
     ```
     API_ENDPOINT = https://xxxxxxxxxx.execute-api.eu-west-2.amazonaws.com/dev
