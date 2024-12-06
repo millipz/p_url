@@ -48,11 +48,11 @@ def redirect_page(long_url: str) -> None:
 
 def main() -> None:
     """Main function to run the Streamlit app."""
-    go = st.query_params.get("go")
+    short = st.query_params.get("go")
 
-    if go:
-        st.text(f"Short path is {go}")
-        long_url = get_long_url(go)
+    if short:
+        st.text(f"Short path is {short}")
+        long_url = get_long_url(short)
         if long_url:
             redirect_page(long_url)
         else:
@@ -65,11 +65,10 @@ def main() -> None:
     if long_url:
         short_url = create_short_url(long_url)
         if short_url:
-            st.success("Here's your new shiny short URL!")
             full_url = f"{BASE_URL}/?go={short_url}"
-            st.markdown(f"[{full_url.split('://')[1]}]({full_url})")
+            st.success("Here's your new shiny short URL! " +f"[{full_url.split('://')[1]}]({full_url})")
             st.divider()
-            st.code("API response (for debugging):")
+            st.markdown("_API response (for debugging)_")
             st.json({"short_url": short_url})
 
 
