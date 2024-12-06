@@ -66,7 +66,9 @@ def main() -> None:
         short_url = create_short_url(long_url)
         if short_url:
             full_url = f"{BASE_URL}/?go={short_url}"
-            st.success("Here's your new shiny short URL! " +f"[{full_url.split('://')[1]}]({full_url})")
+            st.success(
+                "Here's your new shiny short URL! " + f"[{full_url.split('://')[1]}]({full_url})"
+            )
             st.divider()
             st.markdown("_API response (for debugging)_")
             st.json({"short_url": short_url})
