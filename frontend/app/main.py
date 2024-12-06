@@ -50,6 +50,7 @@ def main() -> None:
     """Main function to run the Streamlit app."""
     if not API_ENDPOINT:
         st.error("missing .env file, please contact the developer or deploy your own backend!")
+        st.stop()
     short = st.query_params.get("go")
 
     if short:
