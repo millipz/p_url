@@ -24,6 +24,8 @@ These instructions are for MacOS or Linux systems
 
 1. `make frontend-run`
 
+Note: becasue of the way streamlit functions, the first run of a new deployment will take a few seconds. New requests after that should be almost instant.
+
 ## Project Structure
 
 The project is divided into two main components:
