@@ -5,7 +5,7 @@ output "lambda_function_name" {
 
 output "api_gateway_invoke_url" {
   description = "The invoke URL for the API Gateway"
-  value       = aws_api_gateway_stage.api_dev_stage.invoke_url
+  value       = aws_api_gateway_stage.dev.invoke_url
 }
 
 output "lambda_function_arn" {

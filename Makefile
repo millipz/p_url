@@ -11,53 +11,43 @@ FRONTEND_DIR := frontend
 # Frontend
 frontend-environment:
 	@echo "Installing dependencies..."
-	cd $(FRONTEND_DIR) && uv venv
+	cd $(FRONTEND_DIR) && bun install
 
-frontend-install:
-	@echo "Installing dependencies..."
-	cd $(FRONTEND_DIR) && uv pip install -e .
+frontend-install: frontend-environment
 
-frontend-install-dev:
-	@echo "Installing dev dependencies..."
-	cd $(FRONTEND_DIR) && uv pip install -e ".[dev]"
+frontend-install-dev: frontend-environment
 
 frontend-test:
-	cd $(FRONTEND_DIR) && uv run pytest
+	cd $(FRONTEND_DIR) && bun test
 
 frontend-lint:
-	@echo "Linting code..."
-	cd $(FRONTEND_DIR) && uv run black .
-	cd $(FRONTEND_DIR) && uv run flake8
+	@echo "Linting and fixing code..."
+	cd $(FRONTEND_DIR) && bun run format
+	cd $(FRONTEND_DIR) && bun run lint --fix
 
 frontend-audit:
 	@echo "Running security audit..."
-	cd $(FRONTEND_DIR) && uv run pip-audit
+	cd $(FRONTEND_DIR) && bunx snyk test
 
-frontend-all: frontend-environment frontend-install frontend-install-dev frontend-test frontend-lint frontend-audit
+frontend-all: frontend-install frontend-test frontend-lint frontend-audit
 
 frontend-run:
-	@echo "Spinning up Streamlit frontend..."
-	cd $(FRONTEND_DIR) && \
-	uv run streamlit run app/main.py \
-	--server.enableCORS=false \
-	--server.enableXsrfProtection=false
+	@echo "Starting Svelte frontend..."
+	cd $(FRONTEND_DIR) && bun run dev
 
 
 # Backend
 backend-environment:
 	@echo "Installing dependencies..."
 	cd $(BACKEND_DIR) && uv venv
-	cd $(FRONTEND_DIR) && uv venv
 
 backend-install:
 	@echo "Installing dependencies..."
 	cd $(BACKEND_DIR) && uv pip install -e .
-	cd $(FRONTEND_DIR) && uv pip install -e .
 
 backend-install-dev:
 	@echo "Installing dev dependencies..."
 	cd $(BACKEND_DIR) && uv pip install -e ".[dev]"
-	cd $(FRONTEND_DIR) && uv pip install -e ".[dev]"
 
 backend-test:
 	@echo "Running tests..."
@@ -67,13 +57,10 @@ backend-lint:
 	@echo "Linting code..."
 	cd $(BACKEND_DIR) && uv run black .
 	cd $(BACKEND_DIR) && uv run flake8
-	cd $(FRONTEND_DIR) && uv run black .
-	cd $(FRONTEND_DIR) && uv run flake8
 
 backend-audit:
 	@echo "Running security audit..."
 	cd $(BACKEND_DIR) && uv run pip-audit
-	cd $(FRONTEND_DIR) && uv run pip-audit
 
 backend-all: backend-environment backend-install backend-install-dev backend-test backend-lint backend-audit
 
@@ -92,7 +79,7 @@ init-terraform:
 	@echo "------- $(PURPLE) 👷‍♀️ Initialising Terraform $(RESET)------- "
 	@cd terraform && terraform init -input=false
 
-deploy-infrastructure: init-terraform layer
+deploy-infrastructure: init-terraform backend-layer
 	@echo "------- $(PURPLE) 🧱 Deploying Terraform $(RESET)------- "
 	@cd terraform && terraform apply -auto-approve
 
